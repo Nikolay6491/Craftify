@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="avatar_size">48dp</dimen>
+    <dimen name="margin_default">16dp</dimen>
+    <dimen name="text_margin">4dp</dimen>
+    <dimen name="commonSpacing">16dp</dimen>
+    <dimen name="iconButtonMinSize">24dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="icon_button_padding">24dp</dimen>
+    <dimen name="icon_button_min_size">24dp</dimen>
+    <dimen name="common_spacing">16dp</dimen>
+    <dimen name="big_dimen">48dp</dimen>
+</resources>

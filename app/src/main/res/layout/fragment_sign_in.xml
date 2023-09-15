@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/emptyField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/big_dimen"
+        android:layout_marginVertical="@dimen/common_spacing"
+        app:layout_constraintStart_toStartOf="@id/loginField"
+        app:layout_constraintEnd_toEndOf="@id/loginField"
+        app:layout_constraintBottom_toTopOf="@id/loginField"
+        android:textColor="@color/like"
+        android:visibility="gone"
+        android:text="@string/empty_fields"/>
+
+    <TextView
+        android:id="@+id/incorrect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/big_dimen"
+        android:layout_marginVertical="@dimen/common_spacing"
+        app:layout_constraintStart_toStartOf="@id/loginField"
+        app:layout_constraintEnd_toEndOf="@id/loginField"
+        app:layout_constraintBottom_toTopOf="@id/loginField"
+        android:textColor="@color/like"
+        android:visibility="gone"
+        tools:visibility="visible"
+
+        android:text="@string/sign_in_error"/>
+
+    <EditText
+        android:id="@+id/loginField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/passwordField"
+        android:background="@color/white"
+        android:gravity="top"
+        android:backgroundTint="@color/mint_transparent"
+        android:layout_marginHorizontal="@dimen/big_dimen"
+        android:layout_marginVertical="@dimen/common_spacing"
+        android:hint="@string/login"
+        android:importantForAutofill="no"
+        android:inputType="textLongMessage"
+        android:padding="@dimen/common_spacing"
+        app:layout_constraintVertical_chainStyle="packed"/>
+
+    <EditText
+        android:id="@+id/passwordField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loginField"
+        app:layout_constraintBottom_toTopOf="@id/signIn"
+        android:background="@color/white"
+        android:gravity="top"
+        android:backgroundTint="@color/mint_transparent"
+        android:layout_marginHorizontal="@dimen/big_dimen"
+        android:hint="@string/password"
+        android:importantForAutofill="no"
+        android:inputType="textPassword"
+        android:padding="@dimen/common_spacing" />
+
+    <Button
+        android:id="@+id/signIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/passwordField"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginVertical="@dimen/common_spacing"
+        android:text="@string/sing_in" />
+
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_marginVertical="@dimen/common_spacing"
+        app:layout_constraintTop_toBottomOf="@id/passwordField"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

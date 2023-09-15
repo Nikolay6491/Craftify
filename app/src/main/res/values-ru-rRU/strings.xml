@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="craftify">Craftify!</string>
+    <string name="app_name">Craftify</string>
+    <string name="description_post_author_avatar">Аватар автора поста</string>
+    <string name="description_post_menu">Меню поста</string>
+    <string name="like">Нравится</string>
+    <string name="share">Поделиться</string>
+    <string name="views">Просмотры</string>
+    <string name="menu_remove">Удалить</string>
+    <string name="menu_edit">Редактировать</string>
+    <string name="post_text">Текст поста</string>
+    <string name="description_post_save">Сохранить</string>
+    <string name="description_post_cancel">Отменить</string>
+    <string name="error_empty_content">Сообщение не может быть пустым</string>
+    <string name="add_post">Добавить пост</string>
+    <string name="enter_text">Введите текст</string>
+    <string name="play_video">Воспроизвести видео</string>
+    <string name="empty_content_error">Контент отсутствует</string>
+    <string name="channel_remote_name">Уведомление сервера</string>
+    <string name="channel_remote_description">Уведомления с удалённого сервера</string>
+    <string name="notification_user_liked">Пользователь %1$s поставил лайк посту %2$s</string>
+    <string name="notification_user_new_posted">%1$s опубликовал новый пост</string>
+    <string name="google_play_unavailable">Google API не доступен</string>
+    <string name="error_notification_title">Вы используете старую версию приложения</string>
+    <string name="error_notification_text">Пожалуйста, обновите приложение для корректной работы</string>
+    <string name="error">Случилось что-то плохое</string>
+    <string name="retry">Повторить</string>
+    <string name="empty_posts">Пустые сообщения</string>
+    <string name="post_image">Изображение</string>
+
+    <string name="new_post">Новый пост</string>
+    <string name="clear">Удалить</string>
+    <string name="photo_pick_error">Ошибка выбора фотографии</string>
+    <string name="description_select_photo">Выберите фотографию</string>
+    <string name="description_take_photo">Сделайте снимок</string>
+    <string name="description_photo">Фотография</string>
+    <string name="remove">Удалить</string>
+    <string name="sing_in">Войти</string>
+    <string name="sing_up">Регистрация</string>
+    <string name="logout">Выйти</string>
+    <string name="sign_in_error">Пользователь не найден или пароль/логин неверен</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="empty_fields">Поля не могут быть пустыми</string>
+
+</resources>

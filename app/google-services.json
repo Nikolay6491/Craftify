@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "347309520711",
+    "project_id": "craftify-94ff2",
+    "storage_bucket": "craftify-94ff2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:347309520711:android:7de5a63fcf1e8ffdbffe62",
+        "android_client_info": {
+          "package_name": "ru.netology.craftify"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZuh5I5w7x0o74ocCM7ClwR7UZqdSlCO4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
