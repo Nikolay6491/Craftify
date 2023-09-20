@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryDark">@color/purple_700</item>
+        <item name="colorPrimary">@color/green_700</item>
+        <item name="colorPrimaryDark">@color/green_500</item>
         <item name="colorAccent">@color/teal_700</item>
     </style>
 
-    <style name="Widget.AppTheme.FavoriteCheckBox" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
+    <style name="Widget.AppTheme.LikeCheckBox" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
         <item name="backgroundTint">@android:color/transparent</item>
         <item name="iconTint">@color/like_checkbox_tint</item>
         <item name="android:textColor">?attr/colorControlNormal</item>
@@ -30,6 +30,33 @@
         <item name="android:insetBottom">0dp</item>
         <item name="android:paddingStart">@dimen/icon_button_padding</item>
         <item name="android:paddingEnd">@dimen/icon_button_padding</item>
+        <item name="android:minWidth">@dimen/icon_button_min_size</item>
+        <item name="android:minHeight">@dimen/icon_button_min_size</item>
+    </style>
+
+    <style name="Widget.AppTheme.CardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardElevation">5dp</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="colorPrimary">@color/green_200</item>
+        <item name="colorSurface">@color/green_500</item>
+        <item name="colorOnSurface">#F44336</item>
+    </style>
+
+    <style name="Widget.AppTheme.AppBar" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="iconTint">@color/white</item>
+        <item name="android:minWidth">@dimen/icon_button_min_size</item>
+        <item name="android:minHeight">@dimen/icon_button_min_size</item>
+    </style>
+
+    <style name="Widget.AppTheme.DateTime" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="cardBackgroundColor">@color/part_button_tint</item>
+        <item name="android:minWidth">@dimen/icon_button_min_size</item>
+        <item name="android:minHeight">@dimen/icon_button_min_size</item>
+    </style>
+
+    <style name="Widget.AppTheme.PartButton" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="backgroundTint">@color/part_button_tint</item>
+        <item name="iconTint">@color/white</item>
         <item name="android:minWidth">@dimen/icon_button_min_size</item>
         <item name="android:minHeight">@dimen/icon_button_min_size</item>
     </style>

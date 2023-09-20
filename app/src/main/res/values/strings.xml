@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Craftify</string>
     <string name="craftify">Craftify!</string>
+    <string name="welcome">"Welcome "</string>
     <string name="description_post_author_avatar">Post author avatar</string>
     <string name="description_post_menu">Post menu</string>
     <string name="like">Like</string>
@@ -25,14 +26,20 @@
     <string name="error_notification_text">Please update the application for correct operation</string>
     <string name="error">Something bad happened</string>
     <string name="retry">Retry</string>
-    <string name="empty_posts">Empry posts</string>
+    <string name="empty_posts">Empty posts</string>
     <string name="post_image">Post image</string>
     <string name="new_post" >New post</string>
-    <string name="clear">Clear</string>
+    <string name="post_mentions">Mentioned:</string>
     <string name="photo_pick_error">Photo pick error</string>
     <string name="description_select_photo">Select photo</string>
     <string name="description_take_photo">Take photo</string>
     <string name="description_photo">Photo</string>
+    <string name="menu_main_events">Events</string>
+    <string name="menu_main_posts">Posts</string>
+    <string name="menu_main_jobs">Jobs</string>
+    <string name="menu_main_wall">Wall</string>
+    <string name="menu_main_sign_out">Sign Out</string>
+    <string name="header_posts">Posts</string>
     <string name="remove">Remove</string>
     <string name="sing_in">Sing In</string>
     <string name="sing_up">Sing Up</string>
@@ -40,6 +47,36 @@
     <string name="sign_in_error">User name not found or incorrect password/login</string>
     <string name="login">Login</string>
     <string name="password">Password</string>
+    <string name="name">Name</string>
     <string name="empty_fields">Fields should not be empty</string>
+    <string name="button_part">Participating</string>
+    <string name="button_nonpart">Participate</string>
+    <string name="error_loading">Error loading data</string>
+    <string name="latitude">Latitude:</string>
+    <string name="longitude">Longitude:</string>
+    <string name="new_post_content">Content:</string>
+    <string name="new_post_link">Link:</string>
+    <string name="new_event_empty_content">You need to fill in the content of the event</string>
+    <string name="header_events">Events</string>
+    <string name="empty_events">There are no events.\nIf you create a new event, it will appear here</string>
+    <string name="event_speakers">Speakers:</string>
+    <string name="event_participants">Participants:</string>
+    <string name="new_event_datetime">Date and time of the event</string>
+    <string name="new_event_change_datetime">Change</string>
+    <string name="new_post_coordinates">Location:</string>
+    <string name="new_post_online">ONLINE</string>
+    <string name="new_post_offline">OFFLINE</string>
+    <string name="new_job_empty_name">You need to fill in the name of the job</string>
+    <string name="new_job_empty_position">You need to fill in the position of the job</string>
+    <string name="header_jobs">Jobs</string>
+    <string name="empty_jobs">There are no jobs.\nIf you create a new job, it will appear here</string>
+    <string name="new_job_start">Start date:</string>
+    <string name="new_job_finish">Finish date:</string>
+    <string name="new_job_name">Name:</string>
+    <string name="new_job_position">Position:</string>
+    <string name="new_job_link">Link:</string>
+    <string name="new_job_changeDate">Change</string>
+    <string name="new_job_add">Add new job</string>
+    <string name="new_post_empty_content">You need to fill in the content of the post</string>
 
 </resources>

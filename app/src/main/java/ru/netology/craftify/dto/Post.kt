@@ -1,35 +1,48 @@
 package ru.netology.craftify.dto
 
-import ru.netology.craftify.type.AttachmentType
-
-sealed interface FeedItem {
-    val id: Long
-}
-
 data class Post(
     override val id: Long,
-    val author: String,
     val authorId: Long,
-    val authorAvatar: String = "",
+    val author: String,
+    val authorAvatar: String? = null,
+    val authorJob : String? = null,
     val content: String,
     val published: String,
-    val likes: Long = 0,
-    var shares: Long = 0,
-    val views: Long = 0,
-    val likedByMe: Boolean,
-    val sharesByMe: Boolean,
-    val video: String?,
-    val hidden: Boolean,
-    val attachment: Attachment? = null,
-    val ownedByMe: Boolean
+    val coordinates : Coordinates? = null,
+    val link : String? = null,
+    val likeOwnerIds : List<Long>? = emptyList(),
+    val mentionIds : List<Long>? = emptyList(),
+    val mentionList : List<String>? = emptyList(),
+    val mentionedMe : Boolean = false,
+    val likedByMe : Boolean = false,
+    val attachment : Attachment? = null,
+    val ownedByMe : Boolean = false,
 ) : FeedItem
 
-data class Ad(
+data class PostRequest(
+    override val id : Long,
+    val content: String,
+    val coordinates : Coordinates? = null,
+    val link : String? = null,
+    val attachment : Attachment? = null,
+    val mentionIds : List<Long>? = emptyList(),
+) : FeedItem
+
+data class PostResponse(
     override val id: Long,
-    val image: String
+    val authorId: Long,
+    val author: String,
+    val authorAvatar: String? = null,
+    val authorJob : String? = null,
+    val content: String,
+    val published: String,
+    val coordinates : Coordinates? = null,
+    val link : String? = null,
+    val likeOwnerIds : List<Long>? = emptyList(),
+    val mentionIds : List<Long>? = emptyList(),
+    val mentionedMe : Boolean = false,
+    val likedByMe : Boolean = false,
+    val attachment : Attachment? = null,
+    val ownedByMe : Boolean = false,
+    val users : Map<String, UserPreview>?,
 ) : FeedItem
-
-data class Attachment(
-    val url: String,
-    val type: AttachmentType
-)

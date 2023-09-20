@@ -10,4 +10,10 @@
     <dimen name="icon_button_min_size">24dp</dimen>
     <dimen name="common_spacing">16dp</dimen>
     <dimen name="big_dimen">48dp</dimen>
+    <dimen name="fragment_horizontal_margin">16dp</dimen>
+    <dimen name="fragment_vertical_margin">16dp</dimen>
+    <dimen name="marginLeft">24dp</dimen>
+    <dimen name="marginRight">24dp</dimen>
+    <dimen name="marginTop">24dp</dimen>
+    <dimen name="textView_header_textSize">20sp</dimen>
 </resources>

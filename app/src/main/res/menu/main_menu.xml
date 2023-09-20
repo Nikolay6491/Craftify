@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/wall"
+        android:title="@string/menu_main_wall"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/events"
+        android:title="@string/menu_main_events"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/posts"
+        android:title="@string/menu_main_posts"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/jobs"
+        android:title="@string/menu_main_jobs"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/signout"
+        android:title="@string/menu_main_sign_out"
+        app:showAsAction="never" />
+</menu>

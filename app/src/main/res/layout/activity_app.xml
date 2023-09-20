@@ -10,4 +10,10 @@
     app:defaultNavHost="true"
     tools:context=".activity.AppActivity">
 
+    <androidx.fragment.app.FragmentContainerView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/mapsFragment"
+        android:name="ru.netology.craftify.activity.MapsFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </fragment>

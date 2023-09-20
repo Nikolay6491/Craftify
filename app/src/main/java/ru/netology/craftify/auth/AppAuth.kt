@@ -17,6 +17,7 @@ class AppAuth @Inject constructor(
     private val prefs = context.getSharedPreferences("auth", Context.MODE_PRIVATE)
     private val idKey = "id"
     private val tokenKey = "token"
+    private val nameKey = "name"
     private val _data = MutableStateFlow(Token())
     val data = _data.asStateFlow()
     private val _authStateFlow: MutableStateFlow<AuthState>
@@ -32,6 +33,7 @@ class AppAuth @Inject constructor(
     init {
         val id = prefs.getLong(idKey, 0)
         val token = prefs.getString(tokenKey, null)
+        val name = prefs.getString(nameKey, null)
 
         if (id == 0L || token == null) {
             _authStateFlow = MutableStateFlow(AuthState())
@@ -40,21 +42,24 @@ class AppAuth @Inject constructor(
                 apply()
             }
         } else {
-            _authStateFlow = MutableStateFlow(AuthState(id, token))
+            _authStateFlow = MutableStateFlow(AuthState(id, token, name))
         }
     }
 
     val authStateFlow: StateFlow<AuthState> = _authStateFlow.asStateFlow()
 
-    fun setAuth(token: Token) {
-        _authStateFlow.value = AuthState(token.id, token.token)
+    @Synchronized
+    fun setAuth(id: Long, token: String?, name: String?) {
+        _authStateFlow.value = AuthState(id, token, name)
         with(prefs.edit()) {
-            putLong(idKey, token.id)
-            putString(tokenKey, token.token)
+            putLong(idKey, id)
+            putString(tokenKey, token)
+            putString(nameKey, name)
             apply()
         }
     }
 
+    @Synchronized
     fun remove() {
         _authStateFlow.value = AuthState()
         with(prefs.edit()) {
@@ -62,6 +67,6 @@ class AppAuth @Inject constructor(
             commit()
         }
     }
-
-    data class AuthState(val id: Long = 0, val token: String? = null)
 }
+
+data class AuthState(val id: Long = 0, val token: String? = null, val name: String? = null)

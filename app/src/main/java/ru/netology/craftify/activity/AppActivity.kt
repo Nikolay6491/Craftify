@@ -1,133 +1,84 @@
 package ru.netology.craftify.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.MenuProvider
 import androidx.navigation.findNavController
-import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.common.GoogleApiAvailability
-import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_INDEFINITE
-import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.messaging.FirebaseMessaging
+import com.yandex.mapkit.geometry.Point
 import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.craftify.R
-import ru.netology.craftify.activity.NewPostFragment.Companion.textArg
+import ru.netology.craftify.activity.JobFragment.Companion.user_Id
+import ru.netology.craftify.activity.WallFragment.Companion.userId
 import ru.netology.craftify.auth.AppAuth
-import ru.netology.craftify.databinding.ActivityAppBinding
-import ru.netology.craftify.viewmodel.AuthViewModel
+import ru.netology.craftify.viewmodel.SignInViewModel
 import javax.inject.Inject
 
+val coordinatesSaratov = Point(51.530161, 46.061777)
+
+val date = "dd.MM.yyyy"
+val time = "HH:mm"
+
+
 @AndroidEntryPoint
-class AppActivity : AppCompatActivity() {
-
+class AppActivity : AppCompatActivity(R.layout.activity_app) {
     @Inject
-    lateinit var appAuth: AppAuth
-
-    @Inject
-    lateinit var googleApiAvailability: GoogleApiAvailability
-
-    @Inject
-    lateinit var firebaseMessaging: FirebaseMessaging
+    lateinit var auth: AppAuth
+    private val singInViewModel: SignInViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding = ActivityAppBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        intent?.let {
-            if (it.action != Intent.ACTION_SEND) {
-                return@let
-            }
-
-            val text = it.getStringExtra(Intent.EXTRA_TEXT)
-            if (text.isNullOrBlank()) {
-                Snackbar.make(binding.root, R.string.error_empty_content, LENGTH_INDEFINITE)
-                    .setAction(android.R.string.ok) {
-                        finish()
-                    }
+        singInViewModel.data.observe(this){
+            invalidateOptionsMenu()
+            if (it.id == 0L) {
+                findNavController(R.id.container)
+                    .navigate(R.id.signInFragment)
+            } else {
+                val welcome = getString(R.string.welcome)
+                Toast.makeText(this@AppActivity,"$welcome ${it.name}", Toast.LENGTH_LONG)
                     .show()
-                return@let
             }
-            findNavController(R.id.container).navigate(
-                R.id.action_feedFragment_to_newPostFragment,
-                Bundle().apply { textArg = text }
-            )
-
-            firebaseMessaging.token.addOnSuccessListener {
-                println("current token: $it")
-            }
-
-            checkGoogleApiAvailability()
-        }
-
-        val authViewModel: AuthViewModel by viewModels()
-        var currentMenuProvider: MenuProvider? = null
-        authViewModel.state.observe(this) { token ->
-            val authorized = token.token != null
-
-            currentMenuProvider?.let {
-                removeMenuProvider(it)
-            }
-            addMenuProvider(
-                object : MenuProvider {
-                    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                        menuInflater.inflate(R.menu.auth_menu, menu)
-                        if (authorized) {
-                            menu.setGroupVisible(R.id.authorized, true)
-                            menu.setGroupVisible(R.id.unauthorized, false)
-                        } else {
-                            menu.setGroupVisible(R.id.authorized, false)
-                            menu.setGroupVisible(R.id.unauthorized, true)
-                        }
-                    }
-
-                    override fun onMenuItemSelected(menuItem: MenuItem): Boolean =
-                        when (menuItem.itemId) {
-                            R.id.signIn -> {
-                                findNavController(R.id.container).navigate(R.id.action_feedFragment_to_signInFragment)
-                                true
-                            }
-                            R.id.signUp -> {
-                                true
-                            }
-                            R.id.logout -> {
-                                appAuth.remove()
-                                true
-                            }
-                            else -> false
-                        }
-                }.also {
-                    currentMenuProvider = it
-                },
-                this
-            )
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
 
-    private fun checkGoogleApiAvailability() {
-        with(googleApiAvailability) {
-            val code = isGooglePlayServicesAvailable(this@AppActivity)
-            if (code == ConnectionResult.SUCCESS) {
-                return@with
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.wall -> {
+                findNavController(R.id.container).navigate(R.id.wallFragment,
+                    Bundle().apply {
+                        userId = auth.authStateFlow.value.id
+                    })
+                true
             }
-            if (isUserResolvableError(code)) {
-                getErrorDialog(this@AppActivity, code, 9000)?.show()
-                return
+            R.id.posts -> {
+                findNavController(R.id.container).navigate(R.id.feedFragment)
+                true
             }
-            Toast.makeText(this@AppActivity, R.string.google_play_unavailable, Toast.LENGTH_LONG)
-                .show()
-        }
+            R.id.events -> {
+                findNavController(R.id.container).navigate(R.id.feedEventFragment)
+                true
+            }
+            R.id.jobs -> {
+                findNavController(R.id.container).navigate(R.id.jobFragment,
+                    Bundle().apply {
+                        user_Id = auth.authStateFlow.value.id
+                    })
 
-        firebaseMessaging.token.addOnSuccessListener {
-            println(it)
+                true
+            }
+            R.id.signout -> {
+                auth.remove()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }

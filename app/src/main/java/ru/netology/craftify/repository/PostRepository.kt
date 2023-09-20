@@ -1,22 +1,32 @@
 package ru.netology.craftify.repository
 
-import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
-import ru.netology.craftify.dto.FeedItem
-import ru.netology.craftify.dto.Media
-import ru.netology.craftify.dto.MediaUpload
-import ru.netology.craftify.dto.Post
+import ru.netology.craftify.auth.AuthState
+import ru.netology.craftify.dto.*
 
 interface PostRepository {
-    val data: Flow<PagingData<FeedItem>>
-    suspend fun getAll()
-    suspend fun getById(id: Long?): Post?
-    suspend fun likes(id: Long, likesByMe: Boolean)
+    val posts: Flow<List<Post>>
+    val events: Flow<List<Event>>
+    val users: Flow<List<Users>>
+    val jobs: Flow<List<Job>>
+    suspend fun getPosts()
+    suspend fun getPostsByAuthor(userId: Long)
+    suspend fun upload(upload: MediaRequest): MediaResponse
     suspend fun save(post: Post)
-    suspend fun saveWithAttachment(post: Post, upload: MediaUpload)
-    suspend fun uploadMedia(upload: MediaUpload): Media
-    suspend fun sharesById(id: Long)
+    suspend fun saveWithAttachment(post: Post, upload: MediaRequest)
     suspend fun removeById(id: Long)
-    fun getNewer(id: Long): Flow<Int>
-    suspend fun showAll()
+    suspend fun likeById(id: Long)
+    suspend fun userAuthentication(login: String, pass: String): AuthState
+    suspend fun userRegistration(login: String, pass: String, name: String): AuthState
+    suspend fun userRegistrationWithAvatar(login: String, pass: String, name: String, avatar: MediaRequest): AuthState
+    suspend fun getUsers()
+    suspend fun getEvents()
+    suspend fun saveEvent(event: Event)
+    suspend fun saveEventWithAttachment(event: Event, upload: MediaRequest)
+    suspend fun likeEventById(id: Long, likedByMe: Boolean)
+    suspend fun removeEventById(id: Long)
+    suspend fun partEventById(id: Long, participatedByMe: Boolean)
+    suspend fun getJobs(userId: Long, currentUser: Long)
+    suspend fun saveJob(userId: Long, job: Job)
+    suspend fun removeJobById(id: Long)
 }
