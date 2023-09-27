@@ -29,7 +29,6 @@ import ru.netology.craftify.util.DoubleArg
 @AndroidEntryPoint
 class NewMapsFragment : Fragment(), UserLocationObjectListener, CameraListener,
     InputListener {
-
     companion object {
         var Bundle.latArg: Double by DoubleArg
         var Bundle.longArg: Double by DoubleArg

@@ -17,7 +17,6 @@ import java.util.*
 
 @AndroidEntryPoint
 class NewJobFragment : Fragment() {
-
     private val viewModel: PostViewModel by viewModels(
         ownerProducer = ::requireParentFragment,
     )
@@ -70,7 +69,7 @@ class NewJobFragment : Fragment() {
         }
 
         val dateStartSetListener =
-            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 cal.set(Calendar.YEAR, year)
                 cal.set(Calendar.MONTH, monthOfYear)
                 cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
@@ -88,7 +87,7 @@ class NewJobFragment : Fragment() {
         }
 
         val dateFinishSetListener =
-            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 cal.set(Calendar.YEAR, year)
                 cal.set(Calendar.MONTH, monthOfYear)
                 cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)

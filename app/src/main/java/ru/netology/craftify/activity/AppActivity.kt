@@ -13,6 +13,7 @@ import ru.netology.craftify.R
 import ru.netology.craftify.activity.JobFragment.Companion.user_Id
 import ru.netology.craftify.activity.WallFragment.Companion.userId
 import ru.netology.craftify.auth.AppAuth
+import ru.netology.craftify.databinding.ActivityAppBinding
 import ru.netology.craftify.viewmodel.SignInViewModel
 import javax.inject.Inject
 
@@ -23,13 +24,16 @@ val time = "HH:mm"
 
 
 @AndroidEntryPoint
-class AppActivity : AppCompatActivity(R.layout.activity_app) {
+class AppActivity : AppCompatActivity() {
     @Inject
     lateinit var auth: AppAuth
     private val singInViewModel: SignInViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val binding = ActivityAppBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         singInViewModel.data.observe(this){
             invalidateOptionsMenu()

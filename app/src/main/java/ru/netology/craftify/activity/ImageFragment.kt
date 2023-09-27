@@ -13,7 +13,6 @@ import ru.netology.craftify.view.load
 
 @AndroidEntryPoint
 class ImageFragment  : Fragment()  {
-
     companion object{
         var Bundle.textArg: String? by StringArg
     }

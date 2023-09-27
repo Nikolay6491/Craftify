@@ -7,7 +7,7 @@ import android.view.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toFile
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.constant.ImageProvider
@@ -22,11 +22,6 @@ import ru.netology.craftify.viewmodel.PostViewModel
 
 @AndroidEntryPoint
 class NewPostFragment : Fragment() {
-
-    private val viewModel: PostViewModel by viewModels(
-        ownerProducer = ::requireParentFragment,
-    )
-
     private var fragmentBinding: FragmentNewPostBinding? = null
 
     override fun onCreateView(
@@ -34,6 +29,8 @@ class NewPostFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val viewModel: PostViewModel by activityViewModels()
+
         val binding = FragmentNewPostBinding.inflate(
             inflater,
             container,

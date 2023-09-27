@@ -18,7 +18,6 @@ import com.github.dhaval2404.imagepicker.constant.ImageProvider
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.craftify.databinding.FragmentSignInBinding
-import ru.netology.craftify.viewmodel.PostViewModel
 import ru.netology.craftify.R
 import ru.netology.craftify.util.AndroidUtils.hideKeyboard
 import ru.netology.craftify.view.afterTextChanged
@@ -27,12 +26,7 @@ import ru.netology.craftify.viewmodel.SignInViewModel
 
 @AndroidEntryPoint
 class SignInFragment : Fragment() {
-
     private var fragmentBinding: FragmentSignInBinding? = null
-
-    private val viewModel: PostViewModel by viewModels(
-        ownerProducer = ::requireParentFragment,
-    )
 
     private val viewModelSing: SignInViewModel by viewModels()
 
@@ -41,6 +35,7 @@ class SignInFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         val binding = FragmentSignInBinding.inflate(
             inflater,
             container,

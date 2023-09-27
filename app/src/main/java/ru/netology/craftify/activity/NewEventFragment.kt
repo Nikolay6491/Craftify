@@ -8,11 +8,10 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.*
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toFile
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.constant.ImageProvider
@@ -23,7 +22,6 @@ import ru.netology.craftify.activity.NewMapsFragment.Companion.latArg
 import ru.netology.craftify.activity.NewMapsFragment.Companion.longArg
 import ru.netology.craftify.databinding.FragmentNewEventBinding
 import ru.netology.craftify.type.EventType
-import ru.netology.craftify.util.AndroidUtils
 import ru.netology.craftify.view.load
 import ru.netology.craftify.viewmodel.PostViewModel
 import java.time.Instant
@@ -33,10 +31,6 @@ import java.util.*
 
 @AndroidEntryPoint
 class NewEventFragment : Fragment() {
-    private val viewModel: PostViewModel by viewModels(
-        ownerProducer = ::requireParentFragment,
-    )
-
     private var fragmentBinding: FragmentNewEventBinding? = null
 
     override fun onCreateView(
@@ -44,6 +38,8 @@ class NewEventFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val viewModel: PostViewModel by activityViewModels()
+
         val binding = FragmentNewEventBinding.inflate(
             inflater,
             container,
@@ -94,7 +90,7 @@ class NewEventFragment : Fragment() {
         )
 
         val dateSetListener =
-            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 cal.set(Calendar.YEAR, year)
                 cal.set(Calendar.MONTH, monthOfYear)
                 cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
@@ -102,7 +98,7 @@ class NewEventFragment : Fragment() {
                 binding.editTextDate.setText(sdf.format(cal.time))
             }
 
-        val timeSetListener = TimePickerDialog.OnTimeSetListener { view, hour, minute ->
+        val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
             cal.set(Calendar.HOUR_OF_DAY, hour)
             cal.set(Calendar.MINUTE, minute)
             val sdf = SimpleDateFormat(time, Locale.getDefault())
