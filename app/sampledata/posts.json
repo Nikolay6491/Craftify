@@ -8,7 +8,16 @@
       "content": "Привет, это Craftify!",
       "likes": "2",
       "shares": "2",
-      "views": "2"
+      "views": "2",
+      "authorJob" : "Android-разработчик",
+      "likedByMe": true,
+      "coordinates" : "51.530161, 46.061777",
+      "link" : "https://craftify.ru/",
+      "likeOwnerIds" : "123, 456,789",
+      "mentionIds" : "234,589",
+      "mentionedMe" : "true",
+      "attachment" : "",
+      "ownedByMe" : "true"
     }
   ]
 }

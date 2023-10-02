@@ -5,6 +5,7 @@ import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,10 +18,6 @@ import java.util.*
 
 @AndroidEntryPoint
 class NewJobFragment : Fragment() {
-    private val viewModel: PostViewModel by viewModels(
-        ownerProducer = ::requireParentFragment,
-    )
-
     private var fragmentBinding: FragmentNewJobBinding? = null
 
     override fun onCreateView(
@@ -28,6 +25,8 @@ class NewJobFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val viewModel: PostViewModel by activityViewModels()
+
         val binding = FragmentNewJobBinding.inflate(
             inflater,
             container,
