@@ -21,6 +21,8 @@ import ru.netology.craftify.viewmodel.PostViewModel
 
 @AndroidEntryPoint
 class JobFragment : Fragment() {
+    private val viewModel: PostViewModel by activityViewModels()
+
     companion object{
         var Bundle.user_Id: Long by LongArg
     }
@@ -30,7 +32,6 @@ class JobFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val viewModel: PostViewModel by activityViewModels()
 
         val binding = FragmentJobBinding.inflate(inflater, container, false)
 

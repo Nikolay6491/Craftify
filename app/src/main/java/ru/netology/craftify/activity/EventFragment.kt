@@ -23,13 +23,13 @@ import ru.netology.craftify.viewmodel.PostViewModel
 
 @AndroidEntryPoint
 class EventFragment : Fragment() {
+    private val viewModel: PostViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val viewModel: PostViewModel by activityViewModels()
-
         val binding = FragmentEventBinding.inflate(inflater, container, false)
 
         val adapter = EventAdapter(object : OnInteractionEventListener {
@@ -52,11 +52,11 @@ class EventFragment : Fragment() {
             }
 
             override fun onPreviewMap(event: Event) {
-                if (event.coordinates?.lat != null && event.coordinates.long != null) {
+                if (event.coords?.lat != null && event.coords.long != null) {
                     findNavController().navigate(R.id.action_eventFragment_to_mapsFragment,
                         Bundle().apply {
-                            doubleArg1 = event.coordinates.lat.toDouble()
-                            doubleArg2 = event.coordinates.long.toDouble()
+                            doubleArg1 = event.coords.lat.toDouble()
+                            doubleArg2 = event.coords.long.toDouble()
                         })
                 }
             }

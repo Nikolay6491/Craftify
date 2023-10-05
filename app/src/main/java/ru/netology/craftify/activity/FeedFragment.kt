@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,16 +26,15 @@ import ru.netology.craftify.dto.Post
 import ru.netology.craftify.model.FeedModelState
 import ru.netology.craftify.viewmodel.PostViewModel
 
-@Suppress("DEPRECATION")
 @AndroidEntryPoint
 class FeedFragment : Fragment() {
+    private val viewModel: PostViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val viewModel: PostViewModel by activityViewModels()
-
         val binding = FragmentFeedBinding.inflate(inflater, container, false)
 
         val adapter = PostsAdapter(object : OnInteractionListener {
@@ -53,11 +53,11 @@ class FeedFragment : Fragment() {
             }
 
             override fun onMap(post: Post) {
-                if (post.coordinates?.lat != null && post.coordinates.long != null) {
+                if (post.coords?.lat != null && post.coords.long != null) {
                     findNavController().navigate(R.id.action_feedFragment_to_mapsFragment,
                         Bundle().apply {
-                            doubleArg1 = post.coordinates.lat.toDouble()
-                            doubleArg2 = post.coordinates.long.toDouble()
+                            doubleArg1 = post.coords.lat.toDouble()
+                            doubleArg2 = post.coords.long.toDouble()
                         })
                 }
             }
@@ -67,7 +67,6 @@ class FeedFragment : Fragment() {
                     Bundle().apply {
                         textArg = post.attachment?.url
                     })
-
             }
 
             override fun onWall(

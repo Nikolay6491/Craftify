@@ -27,6 +27,7 @@ import ru.netology.craftify.viewmodel.PostViewModel
 
 @AndroidEntryPoint
 class WallFragment : Fragment() {
+    private val viewModel: PostViewModel by activityViewModels()
 
     companion object {
         var Bundle.userId: Long by LongArg
@@ -40,8 +41,6 @@ class WallFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val viewModel: PostViewModel by activityViewModels()
-
         val binding = FragmentWallBinding.inflate(inflater, container, false)
 
         val currentUser = viewModel.getCurrentUser()
@@ -87,15 +86,14 @@ class WallFragment : Fragment() {
 
             override fun onRemove(post: Post) {
                 viewModel.removeById(post.id)
-
             }
 
             override fun onMap(post: Post) {
-                if (post.coordinates != null && post.coordinates.lat != null && post.coordinates.long != null) {
+                if (post.coords != null && post.coords.lat != null && post.coords.long != null) {
                     findNavController().navigate(R.id.action_wallFragment_to_mapsFragment,
                         Bundle().apply {
-                            doubleArg1 = post.coordinates.lat.toDouble()
-                            doubleArg2 = post.coordinates.long.toDouble()
+                            doubleArg1 = post.coords.lat.toDouble()
+                            doubleArg2 = post.coords.long.toDouble()
                         })
                 }
             }
@@ -105,9 +103,9 @@ class WallFragment : Fragment() {
                     Bundle().apply {
                         textArg = post.attachment?.url
                     })
-
             }
         })
+
         binding.list.adapter = adapter
 
         viewModel.dataState.observe(viewLifecycleOwner) { state ->
@@ -119,6 +117,7 @@ class WallFragment : Fragment() {
                     .show()
             }
         }
+
         viewModel.data.observe(viewLifecycleOwner) { state ->
             adapter.submitList(state.posts.filter {
                 it.authorId == userId
@@ -139,7 +138,6 @@ class WallFragment : Fragment() {
                 Bundle().apply {
                     user_Id = userId
                 })
-
         }
 
         binding.avatar.setOnClickListener {
@@ -147,9 +145,7 @@ class WallFragment : Fragment() {
                 Bundle().apply {
                     user_Id = userId
                 })
-
         }
-
         return binding.root
     }
 }

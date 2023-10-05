@@ -22,7 +22,6 @@ val coordinatesSaratov = Point(51.530161, 46.061777)
 val date = "dd.MM.yyyy"
 val time = "HH:mm"
 
-
 @AndroidEntryPoint
 class AppActivity : AppCompatActivity() {
     @Inject

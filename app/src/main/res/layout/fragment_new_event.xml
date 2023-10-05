@@ -145,7 +145,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/common_spacing"
                     android:ellipsize="end"
-                    tools:text="@sample/posts.json/data/coordinates" />
+                    tools:text="@sample/posts.json/data/coordinatesLat" />
 
                 <TextView
                     android:id="@+id/text_coordinate_long"
@@ -153,7 +153,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/common_spacing"
                     android:ellipsize="end"
-                    tools:text="@sample/posts.json/data/coordinates" />
+                    tools:text="@sample/posts.json/data/coordinatesLong" />
             </LinearLayout>
 
             <RadioGroup

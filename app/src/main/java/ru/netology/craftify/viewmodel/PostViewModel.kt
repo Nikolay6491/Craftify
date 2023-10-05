@@ -26,7 +26,7 @@ private val emptyPost = Post(
     content = "",
     published = "",
     likedByMe = false,
-    coordinates = null
+    coords = null
 )
 
 private val emptyEvent = Event(
@@ -40,7 +40,7 @@ private val emptyEvent = Event(
     likedByMe = false,
     participatedByMe = false,
     ownedByMe = false,
-    coordinates = null
+    coords = null
 )
 
 private val emptyJob = Job(
@@ -226,11 +226,11 @@ class PostViewModel @Inject constructor(
         else
             Coordinates(lat, long)
 
-        if (editedPost.value?.coordinates == coordinates) {
+        if (editedPost.value?.coords == coordinates) {
             return
         }
-        editedPost.value = editedPost.value?.copy(coordinates = coordinates)
-        editedEvent.value = editedEvent.value?.copy(coordinates = coordinates)
+        editedPost.value = editedPost.value?.copy(coords = coordinates)
+        editedEvent.value = editedEvent.value?.copy(coords = coordinates)
     }
 
     fun changePhoto(uri: Uri?, file: File?) {
@@ -291,10 +291,10 @@ class PostViewModel @Inject constructor(
                 try {
                     when (_photo.value) {
                         noPhoto -> {
-                            var EventNew = event
+                            var eventNew = event
                             if (event.attachment != null)
-                                EventNew = event.copy(attachment = null)
-                            repository.saveEvent(EventNew)
+                                eventNew = event.copy(attachment = null)
+                            repository.saveEvent(eventNew)
                         }
                         else -> {
                             if (_photo.value?.file != null)
@@ -351,10 +351,10 @@ class PostViewModel @Inject constructor(
         else
             Coordinates(lat, long)
 
-        if (editedEvent.value?.coordinates == coordinates) {
+        if (editedEvent.value?.coords == coordinates) {
             return
         }
-        editedEvent.value = editedEvent.value?.copy(coordinates = coordinates)
+        editedEvent.value = editedEvent.value?.copy(coords = coordinates)
     }
 
     fun changeSpeakersEvent(speakersStr: String) {

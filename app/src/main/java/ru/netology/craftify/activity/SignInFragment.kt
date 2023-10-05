@@ -35,7 +35,6 @@ class SignInFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         val binding = FragmentSignInBinding.inflate(
             inflater,
             container,

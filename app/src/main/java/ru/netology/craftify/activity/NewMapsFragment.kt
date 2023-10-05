@@ -7,6 +7,7 @@ import android.view.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
@@ -25,6 +26,7 @@ import kotlinx.coroutines.launch
 import ru.netology.craftify.R
 import ru.netology.craftify.databinding.FragmentNewMapsBinding
 import ru.netology.craftify.util.DoubleArg
+import ru.netology.craftify.viewmodel.PostViewModel
 
 @AndroidEntryPoint
 class NewMapsFragment : Fragment(), UserLocationObjectListener, CameraListener,
@@ -42,6 +44,7 @@ class NewMapsFragment : Fragment(), UserLocationObjectListener, CameraListener,
     private var routeStartLocation = Point(0.0, 0.0)
     private var followUserLocation = false
 
+    private val viewModel: PostViewModel by activityViewModels()
     private var fragmentBinding: FragmentNewMapsBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

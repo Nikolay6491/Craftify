@@ -4,6 +4,7 @@ import android.app.Activity
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toFile
 import androidx.fragment.app.Fragment
@@ -17,20 +18,62 @@ import ru.netology.craftify.R
 import ru.netology.craftify.activity.NewMapsFragment.Companion.latArg
 import ru.netology.craftify.activity.NewMapsFragment.Companion.longArg
 import ru.netology.craftify.databinding.FragmentNewPostBinding
+import ru.netology.craftify.util.AndroidUtils
 import ru.netology.craftify.view.load
 import ru.netology.craftify.viewmodel.PostViewModel
 
 @AndroidEntryPoint
 class NewPostFragment : Fragment() {
+    private val viewModel: PostViewModel by activityViewModels()
+
     private var fragmentBinding: FragmentNewPostBinding? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.new_post_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.save -> {
+                fragmentBinding?.let {
+                    if (it.editContent.text.toString().isNotEmpty()) {
+                        viewModel.changeContentPosts(it.editContent.text.toString())
+                        viewModel.changeLinkPosts(it.editLink.text.toString())
+                        viewModel.changeMentionList(it.editMentions.text.toString())
+                        viewModel.changeCoordsPosts(
+                            it.textCoordinateLat.text.toString(),
+                            it.textCoordinateLong.text.toString()
+                        )
+                        viewModel.savePosts()
+                        AndroidUtils.hideKeyboard(requireView())
+                    }
+                    else
+                    {
+                        Toast.makeText(
+                            context,
+                            getString(R.string.new_post_empty_content),
+                            Toast.LENGTH_LONG
+                        )
+                            .show()
+                        it.editContent.requestFocus()
+                    }
+                }
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val viewModel: PostViewModel by activityViewModels()
-
         val binding = FragmentNewPostBinding.inflate(
             inflater,
             container,
@@ -48,8 +91,8 @@ class NewPostFragment : Fragment() {
             "...",
             null))
 
-        val lat = editPost?.coordinates?.lat
-        val long = editPost?.coordinates?.long
+        val lat = editPost?.coords?.lat
+        val long = editPost?.coords?.long
         if (lat!=null && long!=null)
             viewModel.changeCoordinatesFromMap(lat, long)
         val attachment = editPost?.attachment

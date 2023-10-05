@@ -18,7 +18,7 @@ data class PostEntity(
     val content: String,
     val published: String,
     @Embedded
-    var coordinates: CoordinateEmbeddable?,
+    var coords: CoordinateEmbeddable?,
     val link: String? = null,
     @TypeConverters(Converters::class)
     val likeOwnerIds:  List<Long>?,
@@ -41,7 +41,7 @@ data class PostEntity(
         authorJob,
         content,
         published,
-        coordinates?.toDto(),
+        coords?.toDto(),
         link,
         likeOwnerIds,
         mentionIds,
@@ -62,7 +62,7 @@ data class PostEntity(
                 dto.authorJob,
                 dto.content,
                 dto.published,
-                CoordinateEmbeddable.fromDto(dto.coordinates),
+                CoordinateEmbeddable.fromDto(dto.coords),
                 dto.link,
                 dto.likeOwnerIds,
                 dto.mentionIds,

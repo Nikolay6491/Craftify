@@ -4,12 +4,14 @@ import android.app.DatePickerDialog
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+import ru.netology.craftify.R
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.craftify.databinding.FragmentNewJobBinding
+import ru.netology.craftify.util.AndroidUtils
 import ru.netology.craftify.viewmodel.PostViewModel
 import java.time.Instant
 import java.time.format.DateTimeFormatter
@@ -18,14 +20,62 @@ import java.util.*
 
 @AndroidEntryPoint
 class NewJobFragment : Fragment() {
+    private val viewModel: PostViewModel by activityViewModels()
+
     private var fragmentBinding: FragmentNewJobBinding? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.new_post_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.save -> {
+                fragmentBinding?.let {
+                    if (it.editName.text.toString().isEmpty()) {
+                        Toast.makeText(
+                            context,
+                            getString(R.string.new_job_empty_name),
+                            Toast.LENGTH_LONG
+                        )
+                            .show()
+                        it.editName.requestFocus()
+                    } else {
+                        if (it.editPosition.text.toString().isEmpty()) {
+                            Toast.makeText(
+                                context,
+                                getString(R.string.new_job_empty_position),
+                                Toast.LENGTH_LONG
+                            )
+                                .show()
+                            it.editPosition.requestFocus()
+                        } else {
+                            viewModel.changeJobStart(it.editStartDate.text.toString())
+                            viewModel.changeJobFinish(it.editFinishDate.text.toString())
+                            viewModel.changeNameJob(it.editName.text.toString())
+                            viewModel.changePositionJob(it.editPosition.text.toString())
+                            viewModel.changeLinkJob(it.editLink.text.toString())
+                            viewModel.saveJob(viewModel.getCurrentUser())
+                            AndroidUtils.hideKeyboard(requireView())
+                        }
+                    }
+                }
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val viewModel: PostViewModel by activityViewModels()
 
         val binding = FragmentNewJobBinding.inflate(
             inflater,

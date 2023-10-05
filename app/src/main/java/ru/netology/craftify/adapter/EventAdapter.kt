@@ -93,7 +93,7 @@ class EventViewHolder(
             if (event.participatedByMe) buttonParticipate.setText(R.string.button_part)
             else buttonParticipate.setText(R.string.button_nonpart)
 
-            buttonMap.isVisible = event.coordinates != null
+            buttonMap.isVisible = event.coords != null
 
             when (event.attachment?.type) {
                 AttachmentType.IMAGE -> {
@@ -119,6 +119,22 @@ class EventViewHolder(
                         }
                     }
 
+                }
+                AttachmentType.AUDIO -> {
+                    AttachmentFrame.visibility = View.VISIBLE
+                    AttachmentImage.visibility = View.GONE
+                    AttachmentVideo.apply {
+                        visibility = View.VISIBLE
+                        setMediaController(MediaController(binding.root.context))
+                        setVideoURI(Uri.parse(event.attachment.url))
+                        setBackgroundResource(R.drawable.audio)
+                        setOnPreparedListener {
+                            setZOrderOnTop(true)
+                        }
+                        setOnCompletionListener {
+                            stopPlayback()
+                        }
+                    }
                 }
                 null -> {
                     AttachmentFrame.visibility = View.GONE

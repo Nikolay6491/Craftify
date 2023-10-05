@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.*
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toFile
 import androidx.fragment.app.Fragment
@@ -22,6 +23,7 @@ import ru.netology.craftify.activity.NewMapsFragment.Companion.latArg
 import ru.netology.craftify.activity.NewMapsFragment.Companion.longArg
 import ru.netology.craftify.databinding.FragmentNewEventBinding
 import ru.netology.craftify.type.EventType
+import ru.netology.craftify.util.AndroidUtils
 import ru.netology.craftify.view.load
 import ru.netology.craftify.viewmodel.PostViewModel
 import java.time.Instant
@@ -31,14 +33,61 @@ import java.util.*
 
 @AndroidEntryPoint
 class NewEventFragment : Fragment() {
+    private val viewModel: PostViewModel by activityViewModels()
+
     private var fragmentBinding: FragmentNewEventBinding? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.new_post_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.save -> {
+                fragmentBinding?.let {
+                    if (it.editContent.text.toString().isNotEmpty()) {
+
+                        viewModel.changeDateTimeEvent(
+                            it.editTextDate.text.toString(),
+                            it.editTextTime.text.toString()
+                        )
+                        viewModel.changeContentEvent(it.editContent.text.toString())
+                        viewModel.changeLinkEvent(it.editLink.text.toString())
+                        viewModel.changeCoordinatesEvent(
+                            it.textCoordinateLat.text.toString(),
+                            it.textCoordinateLong.text.toString()
+                        )
+                        viewModel.changeSpeakersEvent(it.editSpeakers.text.toString())
+                        viewModel.changeTypeEvent(it.radioOnline.isChecked)
+                        viewModel.saveEvent()
+                        AndroidUtils.hideKeyboard(requireView())
+                    }
+                    else                     {
+                        Toast.makeText(
+                            context,
+                            getString(R.string.new_event_empty_content),
+                            Toast.LENGTH_LONG
+                        )
+                            .show()
+                        it.editContent.requestFocus()
+                    }
+                }
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val viewModel: PostViewModel by activityViewModels()
 
         val binding = FragmentNewEventBinding.inflate(
             inflater,
@@ -50,8 +99,8 @@ class NewEventFragment : Fragment() {
         val editEvent = viewModel.getEditEvent()
         binding.editContent.setText(editEvent?.content)
         binding.editLink.setText(editEvent?.link)
-        val lat = editEvent?.coordinates?.lat
-        val long = editEvent?.coordinates?.long
+        val lat = editEvent?.coords?.lat
+        val long = editEvent?.coords?.long
         if (lat != null && long != null)
             viewModel.changeCoordinatesFromMap(lat, long)
         val attachment = editEvent?.attachment

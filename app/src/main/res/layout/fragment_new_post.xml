@@ -100,7 +100,7 @@
                     android:layout_marginStart="@dimen/common_spacing"
                     android:ellipsize="end"
                     android:layout_height="wrap_content"
-                    tools:text="@sample/posts.json/data/coordinates"
+                    tools:text="@sample/posts.json/data/coords"
                     />
 
                 <TextView
@@ -109,7 +109,7 @@
                     android:layout_marginStart="@dimen/common_spacing"
                     android:ellipsize="end"
                     android:layout_height="wrap_content"
-                    tools:text="@sample/posts.json/data/coordinates"
+                    tools:text="@sample/posts.json/data/coords"
                     />
 
             </LinearLayout>

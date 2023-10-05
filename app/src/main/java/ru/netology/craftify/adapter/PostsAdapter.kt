@@ -68,7 +68,7 @@ class PostViewHolder(
 
             buttonLike.isChecked = post.likedByMe
 
-            buttonMap.isVisible = post.coordinates != null
+            buttonMap.isVisible = post.coords != null
 
             if (post.mentionList?.isEmpty() == true) {
                 mentions.visibility = View.GONE
@@ -103,6 +103,22 @@ class PostViewHolder(
                         }
                     }
 
+                }
+                AttachmentType.AUDIO -> {
+                    AttachmentFrame.visibility = View.VISIBLE
+                    AttachmentImage.visibility = View.GONE
+                    AttachmentVideo.apply {
+                        visibility = View.VISIBLE
+                        setMediaController(MediaController(binding.root.context))
+                        setVideoURI(Uri.parse(post.attachment.url))
+                        setBackgroundResource(R.drawable.audio)
+                        setOnPreparedListener {
+                            setZOrderOnTop(true)
+                        }
+                        setOnCompletionListener {
+                            stopPlayback()
+                        }
+                    }
                 }
                 null -> {
                     AttachmentFrame.visibility = View.GONE

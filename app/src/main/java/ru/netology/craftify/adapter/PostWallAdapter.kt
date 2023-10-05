@@ -52,7 +52,7 @@ class PostWallViewHolder(
 
             buttonLike.isChecked = post.likedByMe
 
-            buttonMap.isVisible = post.coordinates != null
+            buttonMap.isVisible = post.coords != null
 
             if (post.mentionIds?.isEmpty() == true) {
                 mentions.visibility = View.GONE
@@ -87,6 +87,22 @@ class PostWallViewHolder(
                         }
                     }
 
+                }
+                AttachmentType.AUDIO -> {
+                    AttachmentFrame.visibility = View.VISIBLE
+                    AttachmentImage.visibility = View.GONE
+                    AttachmentVideo.apply {
+                        visibility = View.VISIBLE
+                        setMediaController(MediaController(binding.root.context))
+                        setVideoURI(Uri.parse(post.attachment.url))
+                        setBackgroundResource(R.drawable.audio)
+                        setOnPreparedListener {
+                            setZOrderOnTop(true)
+                        }
+                        setOnCompletionListener {
+                            stopPlayback()
+                        }
+                    }
                 }
                 null -> {
                     AttachmentFrame.visibility = View.GONE

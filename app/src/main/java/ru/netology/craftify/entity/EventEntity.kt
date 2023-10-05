@@ -20,7 +20,7 @@ data class EventEntity(
     val datetime: String,
     val published: String,
     @Embedded
-    var coordinates: CoordinateEmbeddable?,
+    var coords: CoordinateEmbeddable?,
     val type: EventType,
     @TypeConverters(Converters::class)
     val likeOwnerIds:  List<Long>?,
@@ -48,7 +48,7 @@ data class EventEntity(
         content,
         datetime,
         published,
-        coordinates?.toDto(),
+        coords?.toDto(),
         type,
         likeOwnerIds,
         likedByMe,
@@ -73,7 +73,7 @@ data class EventEntity(
                 dto.content,
                 dto.datetime,
                 dto.published,
-                CoordinateEmbeddable.fromDto(dto.coordinates),
+                CoordinateEmbeddable.fromDto(dto.coords),
                 dto.type,
                 dto.likeOwnerIds,
                 dto.likedByMe,
